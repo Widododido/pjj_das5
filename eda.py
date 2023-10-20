@@ -5,8 +5,6 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 
 
-
-
 def load_data(data):
     return pd.read_csv(data)
 
@@ -20,8 +18,11 @@ def run_eda_app():
     st.write('Halaman EDA')
     df = load_data('titanic.csv')
     
-    submenu = st.sidebar.selectbox("Submenu",["Descriptive","Visualization"])
-    if submenu == 'Descriptive':
+    #submenu = st.sidebar.selectbox("Submenu",["Descriptive","Visualization"])
+    #if submenu == 'Descriptive':
+    tab1, tab2 = st.tabs(["📈 Descriptive", "🗃 Visualization"])
+
+    with tab1:
         with st.expander('Data Frame'):
             st.dataframe(df)
 
@@ -37,9 +38,9 @@ def run_eda_app():
         with st.expander('Null'):
             st.dataframe(df.isna().sum().transpose())
 
-    elif submenu=='Visualization':
-        st.write('Visualization')
-
+    #elif submenu=='Visualization':
+    #    st.write('Visualization')
+    with tab2:
         with st.expander('Pie chart passenger belonging to Emabarked'):
             embarked_counts = df['Embarked'].value_counts()
             fig, ax = plt.subplots()
